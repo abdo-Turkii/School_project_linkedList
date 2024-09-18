@@ -25,7 +25,7 @@ void init_list(list* ptr_list)
     ptr_list->head = NULL;
     ptr_list->size = 0;
 }
-void add(list* ptr_list)
+/*void add(list* ptr_list)
 {
     int score;
     //node* ptr_prv;
@@ -37,7 +37,7 @@ void add(list* ptr_list)
     scanf("%s",ptr_new->l_name);
     //fprintf(data,"%s,",student.l_name);         // To add Last Name in file 
     printf("Total score of 100        \t");
-    scanf("%d",&score);                         // whyyyyyyyyyyyyyyyyyyyyyyy
+    scanf("%d",&score);                         // why (solved by &)
     ptr_new->score = score;
     //fprintf(data,"%d,",student.score);          // To add total score in file 
     printf("Arabic grade (pass/fail)  \t");
@@ -62,7 +62,56 @@ void add(list* ptr_list)
         ptr_list->head=ptr_new; 
     }          
     ptr_list->size++;
+}*/
+void add(list* ptr_list)
+{
+    int score;
+    node* ptr_prv;
+    node* ptr_cur =ptr_list->head ;
+    node* ptr_new =(node*)malloc(sizeof(node));
+    printf("First Name                \t"); 
+    scanf("%s",ptr_new->f_name);
+    printf("Last Name                 \t");
+    scanf("%s",ptr_new->l_name);
+    printf("Total score of 100        \t");
+    scanf("%d",&ptr_new->score);                   // solved
+    printf("Arabic grade (pass/fail)  \t");
+    scanf("%s",ptr_new->arabic_g); 
+    while((getchar()) != '\n'){}//To flush input buffers with fgets
+    printf("English grade (pass/fail) \t");
+    scanf("%s",ptr_new->english_g); 
+    while((getchar()) != '\n'){}//To flush input buffers with fgets
+    printf("Math grade (pass/fail)    \t");
+    scanf("%s",ptr_new->math_g);
+    while((getchar()) != '\n'){}//To flush input buffers with fgets
+    if(!ptr_list->head)
+    {
+        ptr_list->head = ptr_new;
+        ptr_new->next= NULL;
+    }
+    else
+    {  
+        if( (ptr_new->score) > (ptr_list->head->score) )
+        {
+            ptr_new->next = ptr_list->head;
+            ptr_list->head = ptr_new;   
+            goto end;
+        }
+        while(((ptr_cur != NULL) ))
+        {
+            if((ptr_new->score) < (ptr_cur->score))
+            {
+                ptr_prv =ptr_cur;
+            }
+            ptr_cur =ptr_cur->next;
+        }
+        ptr_new->next = ptr_prv->next;
+        ptr_prv->next = ptr_new;
+    }         
+    end:
+    ptr_list->size++;
 }
+
 void display(char* data)
 {
     printf("%s\t",data);
@@ -227,7 +276,7 @@ void del(list* ptr_list)
     }
 
               
-}*/
+}
 void top(list* ptr_list)
 {
     node* ptr_cur = ptr_list->head;
@@ -249,6 +298,25 @@ void top(list* ptr_list)
         top1--;
         ptr_cur = ptr_list->head;   
     }
+    printf("Congratulation(^_^)\n");
+}*/
+void top(list* ptr_list)
+{
+    
+    int score,counter=1;
+    node* ptr_cur;
+    ptr_cur = ptr_list->head;
+    while(counter < 11)
+    {
+        printf("%d-",counter);
+        printf("%s" ,(ptr_cur->f_name));
+        printf(" %s",(ptr_cur->l_name));
+        //score = (ptr_cur->score);
+            printf(" %d\n",ptr_cur->score);
+        ptr_cur = ptr_cur->next;
+        counter++;
+    }
+
     printf("Congratulation(^_^)\n");
 }
 
@@ -295,16 +363,6 @@ int main(int argc, char const *argv[])
                 break;
         }   
     }    
-    
-
-
-
-
-
-
-
-
-
 
     return 0;
 }
